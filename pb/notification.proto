@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package notification;
+
+service NotificationService {
+  rpc RegisterToken(RegisterTokenRequest) returns (RegisterTokenResponse);
+  rpc RemoveToken(RemoveTokenRequest) returns (RemoveTokenResponse);
+  rpc RemoveUserTokens(RemoveUserTokensRequest) returns (RemoveUserTokensResponse);
+  rpc GetUserTokens(GetUserTokensRequest) returns (GetUserTokensResponse);
+  rpc GetAllTokens(GetAllTokensRequest) returns (GetAllTokensResponse);
+}
+
+message RegisterTokenRequest {
+  string uuid = 1;
+  string token = 2;
+}
+
+message RegisterTokenResponse {
+  string uuid = 1;
+  string token = 2;
+  repeated string errors = 3;
+}
+
+message RemoveTokenRequest {
+  string uuid = 1;
+  string token = 2;
+}
+
+message RemoveTokenResponse {
+  string uuid = 1;
+  string token = 2;
+}
+
+message RemoveUserTokensRequest {
+  string uuid = 1;
+}
+
+message RemoveUserTokensResponse {
+  string uuid = 1;
+}
+
+message GetUserTokensRequest {
+  string uuid = 1;
+}
+
+message GetUserTokensResponse {
+  repeated string tokens = 1;
+}
+
+message GetAllTokensRequest {}
+
+message UserTokens {
+  string uuid = 1;
+  repeated string tokens = 2;
+}
+
+message GetAllTokensResponse {
+  repeated UserTokens userTokens = 1;
+}

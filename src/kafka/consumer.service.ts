@@ -9,16 +9,27 @@ import {
   ConsumerSubscribeTopics,
   Kafka,
 } from 'kafkajs';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ConsumerService implements OnApplicationShutdown, OnModuleDestroy {
+  constructor(private readonly configService: ConfigService) {}
+
   private readonly kafka = new Kafka({
-    brokers: ['192.168.1.215:9092'],
+    brokers: [this.configService.getOrThrow('KAFKA_URL')],
+    sasl: {
+      mechanism: 'scram-sha-512',
+      username: this.configService.getOrThrow('KAFKA_USERNAME'),
+      password: this.configService.getOrThrow('KAFKA_PASSWORD'),
+    },
+    ssl: true,
   });
   private readonly consumers: Consumer[] = [];
 
   async consume(topics: ConsumerSubscribeTopics, config: ConsumerRunConfig) {
-    const consumer = this.kafka.consumer({ groupId: 'notification-service' });
+    const consumer = this.kafka.consumer({
+      groupId: this.configService.getOrThrow('KAFKA_GROUP_ID'),
+    });
     await consumer.connect();
     await consumer.subscribe(topics);
     await consumer.run(config);

@@ -4,24 +4,10 @@ import { ProducerService } from './kafka/producer.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly producerService: ProducerService) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   async getHello() {
-    const msg = {
-      from_user: 'uuid',
-      to_user: 'uuid',
-      action: 'like',
-      post_id: 'uuid',
-    };
-
-    return this.producerService.produce({
-      topic: 'notification-service',
-      messages: [
-        {
-          value: JSON.stringify(msg),
-        },
-      ],
-    });
+    await this.appService.getHello();
   }
 }
