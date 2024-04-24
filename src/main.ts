@@ -10,7 +10,7 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         package: 'notification',
-        url: 'localhost:8081',
+        url: 'localhost:50005',
         protoPath: join(__dirname, '../pb/notification.proto'),
       },
       logger: ['error', 'warn'],
