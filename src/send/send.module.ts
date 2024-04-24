@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { SendService } from './send.service';
-import { RegisterService } from '../register/register.service';
 import { RegisterModule } from '../register/register.module';
 import { KafkaModule } from '../kafka/kafka.module';
 import { ConfigModule } from '@nestjs/config';
