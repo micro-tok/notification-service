@@ -15,12 +15,12 @@ export class ProducerService
 
   private readonly kafka = new Kafka({
     brokers: [this.configService.getOrThrow('KAFKA_URL')],
-    sasl: {
-      mechanism: 'scram-sha-512',
-      username: this.configService.getOrThrow('KAFKA_USERNAME'),
-      password: this.configService.getOrThrow('KAFKA_PASSWORD'),
-    },
-    ssl: true,
+    // sasl: {
+    //   mechanism: 'scram-sha-512',
+    //   username: this.configService.getOrThrow('KAFKA_USERNAME'),
+    //   password: this.configService.getOrThrow('KAFKA_PASSWORD'),
+    // },
+    // ssl: true,
   });
   private readonly producer = this.kafka.producer();
 
